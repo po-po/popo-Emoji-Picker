@@ -1,4 +1,4 @@
-# Emoji Picker Documentation
+# popo Emoji Picker
 
 ## Overview
 The Emoji Picker is a JavaScript library for incorporating an emoji selector in web applications. The picker allows users to select emojis which can be inserted into a text input or editable div.
