@@ -3,10 +3,14 @@
 ## Overview
 The Emoji Picker is a JavaScript library for incorporating an emoji selector in web applications. The picker allows users to select emojis which can be inserted into a text input or editable div.
 
-![light theme](https://po-po.github.io/popo-Emoji-Picker/img/1.png)
 ![dark theme](https://po-po.github.io/popo-Emoji-Picker/img/2.png)
 
 ## Installation
+import the Emoji Picker stylesheet in your HTML file:
+```html
+<link rel="stylesheet" href="css/emoji-picker.css" />
+```
+
 To include the Emoji Picker in your project, you can use the following import statement:
 ```javascript
 import { emojiTransform, EmojiPicker } from './emoji-picker.js';
