@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover" name="viewport" />
+		<title>POPO Emoji Picker</title>
+		<link rel="stylesheet" href="css/emoji-picker.css" />
+		<link rel="stylesheet" href="css/emoji-demo.css" />
+	</head>
+	<body>
+		<div class="demo-container">
+            <h1 style="margin-bottom: 40px">popo Emoji Picker</h1>
+			<div class="demo-flex-wrapper" style="margin-bottom: 20px">
+				<div style="margin-right: 10px"><b style="color: var(--p-color-text-secondary)">Type: </b></div>
+				<div class="demo-button-group js-type-selector">
+					<button type="button" class="demo-button active">native</button>
+					<button type="button" class="demo-button">apple</button>
+					<button type="button" class="demo-button">google</button>
+					<button type="button" class="demo-button">twitter</button>
+					<button type="button" class="demo-button">facebook</button>
+				</div>
+			</div>
+
+            <div class="demo-flex-wrapper" style="margin-bottom: 30px">
+                <div style="margin-right: 10px"><b style="color: var(--p-color-text-secondary)">Language: </b></div>
+                <div class="demo-button-group js-language-selector">
+                    <button type="button" class="demo-button active">english</button>
+                    <button type="button" class="demo-button">chinese-simplified</button>
+                </div>
+            </div>
+
+			<div class="demo-flex-wrapper" style="margin-bottom: 30px">
+				<div style="margin-right: 10px"><b style="color: var(--p-color-text-secondary)">Theme: </b></div>
+				<div class="demo-button-group js-theme-selector">
+					<button type="button" class="demo-button active">auto</button>
+					<button type="button" class="demo-button">light</button>
+					<button type="button" class="demo-button">dark</button>
+				</div>
+			</div>
+
+			<div class="demo-flex-wrapper js-theme-wrapper p-theme-dark" style="align-items: start">
+				<div class="demo-flex-1">
+					<div style="margin-bottom: 15px"><b style="color: var(--p-color-text-secondary)">Emoji Picker </b></div>
+					<div class="demo-input-wrapper">
+						<div class="demo-input"></div>
+						<div class="demo-input-footer">
+							<div class="demo-switch-button"></div>
+							<div class="demo-word-limit"></div>
+						</div>
+					</div>
+				</div>
+				<div class="demo-flex-1">
+					<div style="margin-bottom: 15px"><b style="color: var(--p-color-text-secondary)">Emoji Transform</b></div>
+					<div class="js-transform-box"></div>
+				</div>
+			</div>
+		</div>
+
+		<!--<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/vConsole/3.2.0/vconsole.min.js"></script>-->
+		<!--<script>var vConsole = new VConsole();</script>-->
+		<script type="module">
+			import { EmojiPicker, emojiTransform } from './js/emoji.js';
+
+			window.picker = new EmojiPicker({
+				inputElement: document.querySelector('.demo-input'),
+				toggleButtonElement: document.querySelector('.demo-switch-button'),
+				theme: 'dark', // "dark" or "light"
+				placeholder: 'Please Enter Content',
+				showWordLimit: true,
+				maxLength: 100,
+				isNative: true,
+                language: 'en',
+				created: (picker) => {
+					picker.setValue('Hello Word 💜💛❤️😄🙂😍');
+					picker.togglePicker();
+				},
+				inputChange: ({ result, length, maxLength }) => {
+                    transform(result);
+					if (maxLength) {
+						document.querySelector('.demo-word-limit').textContent = `${length}/${maxLength}`;
+					}
+				},
+			});
+
+			function transform(result) {
+				const transformBox = document.querySelector('.js-transform-box');
+				const list = ['native', 'image', 'unicode'];
+                let htmlStr = '';
+				list.forEach((type) => {
+					htmlStr += `
+                    <div class="demo-input-wrapper" style="margin-bottom: 20px">
+                        <div>
+                            <b style="color: var(--p-color-text-secondary)">${type} : </b>
+                            <span style="color: var(--p-color-text-default)">${emojiTransform(result, type) || '--'}</span>
+                        </div>
+                    </div>`;
+				});
+                transformBox.innerHTML = htmlStr;
+			}
+
+			// change theme
+			document.querySelectorAll('.js-theme-selector button').forEach((btn) => {
+				btn.addEventListener('click', () => {
+					document.querySelector('.js-theme-selector button.active').classList.remove('active');
+					const theme = btn.textContent;
+					picker.setTheme(theme);
+					document.querySelector('.js-theme-wrapper').className = `demo-flex-wrapper js-theme-wrapper p-theme-${theme}`;
+
+					btn.classList.add('active');
+				});
+			});
+
+			// change language
+			document.querySelectorAll('.js-language-selector button').forEach((btn) => {
+				btn.addEventListener('click', () => {
+					document.querySelector('.js-language-selector button.active').classList.remove('active');
+					const language = btn.textContent;
+                    picker.setLanguage(language === 'english' ? 'en' : 'zh-CN');
+					btn.classList.add('active');
+				});
+			});
+
+			// change type
+			document.querySelectorAll('.js-type-selector button').forEach((btn) => {
+				btn.addEventListener('click', () => {
+					document.querySelector('.js-type-selector button.active').classList.remove('active');
+
+					const imageType = btn.textContent;
+					if (imageType === 'native') {
+						picker.setNative(true);
+					} else {
+						const cdnRoot = `https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/emoji-datasource-${imageType}/15.1.2`;
+						const cssVars = {
+							'--emoji-background-image': `url(${cdnRoot}/img/${imageType}/sheets-128/64.png)`,
+						};
+						for (let [key, value] of Object.entries(cssVars)) {
+							document.documentElement.style.setProperty(key, value.toString());
+						}
+						picker.setNative(false);
+					}
+
+					btn.classList.add('active');
+				});
+			});
+		</script>
+	</body>
+</html>
