@@ -152,11 +152,10 @@ class InputHandler {
                 const range = this.range;
                 if (!range.collapsed) range.deleteContents();
                 const endsWithNewLine = this.inputElement.lastChild?.textContent === range.startContainer.textContent && range.startContainer.textContent.length === range.startOffset;
-                // 插入换行符
+
                 const brNode = document.createTextNode(endsWithNewLine ? '\n\n' : '\n');
                 range.insertNode(brNode);
 
-                // 将光标移到换行符之后
                 range.setStartAfter(brNode);
                 range.setEndAfter(brNode);
 
@@ -273,7 +272,6 @@ class InputHandler {
             return;
         }
 
-        // 如果是文本节点
         if (range) {
             if (node.nodeType === Node.TEXT_NODE) {
                 if (range.startOffset > 0) {
