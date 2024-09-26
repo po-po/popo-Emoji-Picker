@@ -23,7 +23,7 @@
  */
 
 const imageType = 'apple'; // apple google twitter facebook
-const cdnRoot = `https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/emoji-datasource-${imageType}/15.1.2`;
+const cdnRoot = `https://cdn.jsdelivr.net/npm/emoji-datasource-${imageType}@15.1.2`;
 const imageCols = 62;
 const cssVars = {
     '--emoji-background-image': `url(${cdnRoot}/img/${imageType}/sheets-128/64.png)`,
@@ -52,8 +52,6 @@ const languageMap = {
     'Please Enter Search Keywords': '请输入搜索关键字...',
     Close: '关闭',
 };
-
-console.log(languageMap);
 
 let $t = (string) => {
     return languageMap[string] || string;
