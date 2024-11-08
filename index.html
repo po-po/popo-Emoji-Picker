@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover" name="viewport" />
 	<title>POPO Emoji Picker</title>
+	<link rel="icon" href="/favicon.ico" />
 	<link rel="stylesheet" href="css/emoji-picker.css" />
 	<link rel="stylesheet" href="css/emoji-demo.css" />
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
@@ -45,7 +46,7 @@
 	</div>
 
 
-	<div class="demo-flex-wrapper js-theme-wrapper p-theme-dark" style="align-items: start">
+	<div class="demo-flex-wrapper js-theme-wrapper" style="align-items: start">
 		<div class="demo-flex-1">
 			<div style="margin-bottom: 15px"><b style="color: var(--p-color-text-secondary)">Emoji Picker </b></div>
 			<div class="demo-input-wrapper">
@@ -70,7 +71,7 @@
 	window.picker = new EmojiPicker({
 		inputElement: document.querySelector('.demo-input'),
 		toggleButtonElement: document.querySelector('.demo-switch-button'),
-		theme: 'dark', // "dark" or "light"
+		theme: 'auto', // auto | dark | light
 		placeholder: 'Please Enter Content',
 		showWordLimit: true,
 		maxLength: 100,
