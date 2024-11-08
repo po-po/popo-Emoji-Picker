@@ -705,6 +705,7 @@ class EmojiPicker {
             setPosition();
 
             window.addEventListener('resize', () => setPosition());
+            window.addEventListener('scroll', () => setPosition());
         }
     }
 
