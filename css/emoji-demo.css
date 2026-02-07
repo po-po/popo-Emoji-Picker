@@ -19,20 +19,37 @@
   box-sizing: border-box;
 }
 
+.demo-button-group {
+  display: flex;
+}
+
 .demo-button {
-  margin: 2px 0;
+  margin: 0;
   padding: 5px 10px;
   background-color: var(--p-color-background);
   color: var(--p-color-text-default);
   border: solid 1px var(--p-color-border);
-  border-radius: var(--p-border-radius);
+  border-radius: 0;
   font-size: 16px;
   cursor: pointer;
+}
+.demo-button:first-child {
+  border-top-left-radius: var(--p-border-radius);
+  border-bottom-left-radius: var(--p-border-radius);
+}
+.demo-button:last-child {
+  border-top-right-radius: var(--p-border-radius);
+  border-bottom-right-radius: var(--p-border-radius);
+}
+.demo-button + .demo-button {
+  margin-left: -1px;
 }
 .demo-button.active {
   border-color: var(--p-color-text-primary);
   color: #fff;
   background-color: var(--p-color-text-primary);
+  z-index: 1;
+  position: relative;
 }
 
 .demo-input-wrapper {

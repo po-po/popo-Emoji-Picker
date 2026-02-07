@@ -2,7 +2,7 @@
   --p-emoji-size: 32px;
   --p-width: 390px;
   --p-border-radius: 12px;
-  --p-scroll-bar-width: 4px;
+  --p-scroll-bar-width: 8px;
   --p-header-box-height: 40px;
   --p-header-btn-height: 34px;
   --p-color-header: #f1f1f1;
@@ -88,7 +88,7 @@
 }
 
 .p-emoji-scroll::-webkit-scrollbar-thumb {
-  background-color: transparent;
+  background-color: var(--p-color-scroll-bar);
   border-radius: var(--p-scroll-bar-width);
 }
 
